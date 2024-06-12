@@ -7,9 +7,21 @@ specifies that any user authenticated via an API key can "create", "read",
 "update", and "delete" any "Todo" records.
 =========================================================================*/
 const schema = a.schema({
-  Todo: a
+  Players: a
     .model({
-      content: a.string(),
+      type: a.enum([
+        'ISTJ', 'ISFJ', 'INFJ', 'INTJ',
+        'ISTP', 'ISFP', 'INFP', 'INTP',
+        'ESTP', 'ESFP', 'ENFP', 'ENTP',
+        'ESTJ', 'ESFJ', 'ENFJ', 'ENTJ'
+      ]),
+      number: a.integer(),
+      name: a.string()
+    }).authorization(allow => [allow.owner()]),
+    Guesses: a
+    .model({
+      player: a.integer(),
+      guesses: a.customType({})
     }).authorization(allow => [allow.owner()]),
 });
 
