@@ -31,6 +31,7 @@ const predefinedPlayers: Player[] = [
 function App() {
   const [selectedPlayer, setSelectedPlayer] = useState<any>(null);
   const [isDone, setIsDone] = useState(false);
+  const [id, setId] = useState('');
 
   const findPlayerGuess = (
     guessData: any
@@ -46,13 +47,14 @@ function App() {
 
   const fetchGuesses = async () => {
     const { data: items } = await client.models.Guesses.list();
-    const playerGuesses = findPlayerGuess(items);
-    if (playerGuesses !== undefined) setIsDone(true);
+    const { id = '' } = findPlayerGuess(items);
+    setId(id);
   };
 
-  const submitGuesses = async (newGuesses: Guess, selectedPlayer: Player) => {
+  const submitGuesses = async (newGuesses: Guess, selectedPlayer: Player, loginId: string) => {
     try {
       await client.models.Guesses.create({
+        id: loginId,
         guesses: JSON.stringify(newGuesses),
         player: JSON.stringify(selectedPlayer),
       });
@@ -80,7 +82,7 @@ function App() {
               />
             ) : (
               <>
-                {!isDone && (
+                {!isDone && !(id === user?.signInDetails?.loginId) &&(
                   <>
                     <h2>
                       Welcome, {selectedPlayer.name} ({selectedPlayer.mbti})
@@ -91,9 +93,11 @@ function App() {
                       )}
                       submitGuesses={submitGuesses}
                       selectedPlayer={selectedPlayer}
+                      loginId={user?.signInDetails?.loginId ?? ''}
                     />
                   </>
                 )}
+                {id === user?.signInDetails?.loginId && <h2>You have already played.</h2>}
                 {isDone && <h2>Thanks for playing!</h2>}
               </>
             )}

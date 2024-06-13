@@ -25,10 +25,12 @@ interface Player {
 }
 
 interface GuessInputProps {
+  loginId: string;
   players: Player[];
   submitGuesses: (
     guesses: { [key: number]: string },
-    selectedPlayer: Player
+    selectedPlayer: Player,
+    id: string
   ) => void;
   selectedPlayer: Player;
 }
@@ -40,6 +42,7 @@ const GuessInput: React.FC<GuessInputProps> = ({
   players,
   submitGuesses,
   selectedPlayer,
+  loginId
 }) => {
   const [guesses, setGuesses] = useState<GuessesState>({});
 
@@ -49,7 +52,7 @@ const GuessInput: React.FC<GuessInputProps> = ({
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    submitGuesses(guesses, selectedPlayer);
+    submitGuesses(guesses, selectedPlayer, loginId);
   };
 
   return (
