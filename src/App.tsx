@@ -7,6 +7,7 @@ import "@aws-amplify/ui-react/styles.css";
 import PlayerSelect from "./components/PlayerSelect";
 import GuessInput from "./components/GuessInput";
 import "./App.css"; // Import your CSS file
+import { fetchUserAttributes } from "aws-amplify/auth";
 
 const client = generateClient<Schema>();
 
@@ -31,25 +32,34 @@ const predefinedPlayers: Player[] = [
 function App() {
   const [selectedPlayer, setSelectedPlayer] = useState<any>(null);
   const [isDone, setIsDone] = useState(false);
-  const [id, setId] = useState('');
+  const [hasPlayed, setHasPlayed] = useState(false);
 
-  const findPlayerGuess = (
-    guessData: any
+  const playerGuessExists = (
+    guessData: any,
+    email: string
   ) => {
     const playerGuess =
       guessData.find((guess: any) => {
-        const { player } = guess ?? {};
-        const { id } = player ?? {};
-        return id === selectedPlayer?.id;
+        const { id } = guess ?? {};
+        return id === email
       });
-    return playerGuess;
+
+    return !!playerGuess;
   };
+
+  const fetchUserEmail = async () => {
+    const { email = '' } = await fetchUserAttributes();
+    return email;
+  }
 
   const fetchGuesses = async () => {
     const { data: items } = await client.models.Guesses.list();
-    const { id = '' } = findPlayerGuess(items) ?? {};
-    setId(id);
+    const email = await fetchUserEmail();
+    const exists = playerGuessExists(items, email) ?? {};
+    setHasPlayed(exists);
   };
+
+
 
   const submitGuesses = async (newGuesses: Guess, selectedPlayer: Player, loginId: string) => {
     try {
@@ -82,7 +92,7 @@ function App() {
               />
             ) : (
               <>
-                {(!isDone || !(id === user?.signInDetails?.loginId)) &&(
+                {(!isDone || hasPlayed) &&(
                   <>
                     <h2>
                       Welcome, {selectedPlayer.name} ({selectedPlayer.mbti})
@@ -97,7 +107,7 @@ function App() {
                     />
                   </>
                 )}
-                {id === user?.signInDetails?.loginId && <h2>You have already played.</h2>}
+                {hasPlayed && <h2>You have already played.</h2>}
                 {isDone && <h2>Thanks for playing!</h2>}
               </>
             )}
