@@ -28,15 +28,12 @@ const predefinedPlayers: Player[] = [
 
 function App() {
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
-  const [guesses, setGuesses] = useState({});
   const [isDone, setIsDone] = useState(false);
 
   const submitGuesses = async (newGuesses: Guess, selectedPlayer: Player) => {
     try {
-      setGuesses(newGuesses);
-      console.log("Guesses submitted:", newGuesses, selectedPlayer);
       await client.models.Guesses.create({
-        guesses: JSON.stringify(guesses),
+        guesses: JSON.stringify(newGuesses),
         player: selectedPlayer,
       });
       setIsDone(true);
