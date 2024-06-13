@@ -1,0 +1,82 @@
+.mbti-legend {
+    border: 1px solid #ddd;
+    padding: 15px;
+    border-radius: 8px;
+    width: 500px;
+    max-height: 500px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+  }
+  
+  .mbti-legend-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .mbti-legend-title {
+    font-size: 1.2em;
+    color: #333;
+  }
+  
+  .mbti-legend-toggle {
+    background: none;
+    border: none;
+    font-size: 0.9em;
+    color: #007bff;
+    cursor: pointer;
+    outline: none;
+  }
+  
+  .mbti-legend-toggle:hover {
+    text-decoration: underline;
+  }
+  
+  .mbti-legend-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 300px;
+  }
+  
+  .mbti-legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .mbti-legend-item:last-child {
+    margin-bottom: 0;
+  }
+  
+  .mbti-legend-color {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .mbti-legend-label {
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  
+  .mbti-legend-description {
+    font-size: 0.9em;
+    color: #555;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .mbti-legend-link {
+    font-size: 0.8em;
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  .mbti-legend-link:hover {
+    text-decoration: underline;
+  }
