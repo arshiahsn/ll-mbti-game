@@ -47,7 +47,7 @@ function App() {
 
   const fetchGuesses = async () => {
     const { data: items } = await client.models.Guesses.list();
-    const { id = '' } = findPlayerGuess(items);
+    const { id = '' } = findPlayerGuess(items) ?? {};
     setId(id);
   };
 
@@ -82,7 +82,7 @@ function App() {
               />
             ) : (
               <>
-                {!isDone && !(id === user?.signInDetails?.loginId) &&(
+                {(!isDone || !(id === user?.signInDetails?.loginId)) &&(
                   <>
                     <h2>
                       Welcome, {selectedPlayer.name} ({selectedPlayer.mbti})
