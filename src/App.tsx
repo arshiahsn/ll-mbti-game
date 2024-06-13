@@ -95,14 +95,14 @@ function App() {
           <h1>{user?.signInDetails?.loginId}</h1>
           <div className="container">
             <h1>MBTI Guessing Game</h1>
-            {(!selectedPlayer || hasPlayed) ? (
+            {(!selectedPlayer && !hasPlayed) ? (
               <PlayerSelect
                 players={predefinedPlayers}
                 setSelectedPlayer={setSelectedPlayer}
               />
             ) : (
               <>
-                {(!isDone || hasPlayed) && (
+                {(!isDone && !hasPlayed) && (
                   <>
                     <h2>
                       Welcome, {selectedPlayer.name} ({selectedPlayer.mbti})
