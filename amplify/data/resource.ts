@@ -9,11 +9,7 @@ specifies that any user authenticated via an API key can "create", "read",
 const schema = a.schema({
   Guesses: a
     .model({
-      player: a.customType({
-        id: a.integer(),
-        name: a.string(),
-        mbti: a.string()
-      }),
+      player: a.json(),
       guesses: a.json(),
     })
     .authorization((allow) => [allow.owner()]),

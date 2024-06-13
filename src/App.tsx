@@ -1,10 +1,12 @@
-import { useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useEffect, useState } from "react";
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 import { Authenticator } from "@aws-amplify/ui-react";
 import "@aws-amplify/ui-react/styles.css";
 import PlayerSelect from "./components/PlayerSelect";
 import GuessInput from "./components/GuessInput";
+import "./App.css"; // Import your CSS file
 
 const client = generateClient<Schema>();
 
@@ -27,20 +29,42 @@ const predefinedPlayers: Player[] = [
 ];
 
 function App() {
-  const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
+  const [selectedPlayer, setSelectedPlayer] = useState<any>(null);
   const [isDone, setIsDone] = useState(false);
+
+  const findPlayerGuess = (
+    guessData: any
+  ) => {
+    const playerGuess =
+      guessData.find((guess: any) => {
+        const { player } = guess ?? {};
+        const { id } = player ?? {};
+        return id === selectedPlayer?.id;
+      });
+    return playerGuess;
+  };
+
+  const fetchGuesses = async () => {
+    const { data: items } = await client.models.Guesses.list();
+    const playerGuesses = findPlayerGuess(items);
+    if (playerGuesses !== undefined) setIsDone(true);
+  };
 
   const submitGuesses = async (newGuesses: Guess, selectedPlayer: Player) => {
     try {
       await client.models.Guesses.create({
         guesses: JSON.stringify(newGuesses),
-        player: selectedPlayer,
+        player: JSON.stringify(selectedPlayer),
       });
       setIsDone(true);
     } catch (error: unknown) {
       setIsDone(false);
     }
   };
+
+  useEffect(() => {
+    fetchGuesses();
+  }, []);
 
   return (
     <Authenticator>
@@ -74,7 +98,9 @@ function App() {
               </>
             )}
           </div>
-          <button onClick={signOut}>Sign out</button>
+          <button className="button" onClick={signOut}>
+            Sign out
+          </button>
         </main>
       )}
     </Authenticator>

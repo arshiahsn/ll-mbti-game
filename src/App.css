@@ -1,7 +1,7 @@
 /* General styles */
 body {
   font-family: 'Quicksand', sans-serif;
-  background-color: #fef8f8;
+  background-color: #31f809;
   margin: 0;
   padding: 0;
   display: flex;
@@ -24,14 +24,14 @@ body {
 /* Titles */
 h1 {
   text-align: center;
-  color: #ff6f91;
+  color: #00B361;
   font-size: 2.5em;
   margin-bottom: 20px;
 }
 
 h2 {
   text-align: center;
-  color: #ff6f91;
+  color: #00B361;
   font-size: 1.8em;
   margin-bottom: 20px;
 }
@@ -50,12 +50,12 @@ input, select {
 
 input:focus, select:focus {
   outline: none;
-  border-color: #ff6f91;
+  border-color: #00B361;
 }
 
 /* Buttons */
 button {
-  background-color: #ff6f91;
+  background-color: #694459;
   color: white;
   border: none;
   border-radius: 8px;
@@ -64,11 +64,11 @@ button {
   cursor: pointer;
   transition: background-color 0.3s ease;
   display: block;
-  margin: 10px auto;
+  margin: 10px 10px 10px 10px;
 }
 
 button:hover {
-  background-color: #ff8fb1;
+  background-color: #43303B;
 }
 
 /* List */
@@ -89,7 +89,7 @@ li {
 }
 
 li span {
-  color: #ff6f91;
+  color: #00B361;
   font-weight: bold;
 }
 
@@ -111,4 +111,9 @@ li span {
   display: flex;
   align-items: center;
   justify-content: space-between;
+}
+
+.select {
+  margin: 10px;
+  width: 200px;
 }
