@@ -6,15 +6,29 @@ const mbtiTypes = [
   'ESTP', 'ESFP', 'ENFP', 'ENTP',
   'ESTJ', 'ESFJ', 'ENFJ', 'ENTJ'
 ];
+// Define types for the component props
+interface Player {
+  id: number;
+  name: string;
+}
 
-const GuessInput = ({ players, submitGuesses, selectedPlayer }) => {
-  const [guesses, setGuesses] = useState({});
+interface GuessInputProps {
+  players: Player[];
+  submitGuesses: (guesses: { [key: number]: string }, selectedPlayer: Player) => void;
+  selectedPlayer: Player;
+}
 
-  const handleChange = (playerId, mbti) => {
+// Define the type for the guesses state
+type GuessesState = { [key: number]: string };
+
+const GuessInput: React.FC<GuessInputProps> = ({ players, submitGuesses, selectedPlayer }) => {
+  const [guesses, setGuesses] = useState<GuessesState>({});
+
+  const handleChange = (playerId: number, mbti: string) => {
     setGuesses({ ...guesses, [playerId]: mbti });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     submitGuesses(guesses, selectedPlayer);
   };

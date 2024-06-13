@@ -7,7 +7,18 @@ const mbtiTypes = [
   'ESTJ', 'ESFJ', 'ENFJ', 'ENTJ'
 ];
 
-const PlayerSelect = ({ players, setSelectedPlayer }) => {
+// Define types for the component props and state
+interface Player {
+  id: number;
+  name: string;
+}
+
+interface PlayerSelectProps {
+  players: Player[];
+  setSelectedPlayer: (player: Player & { mbti: string }) => void;
+}
+
+const PlayerSelect: React.FC<PlayerSelectProps> = ({ players, setSelectedPlayer }) => {
   const [selectedId, setSelectedId] = useState('');
   const [mbti, setMbti] = useState('');
 

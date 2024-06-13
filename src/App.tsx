@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 import { Authenticator } from "@aws-amplify/ui-react";
@@ -6,11 +6,21 @@ import "@aws-amplify/ui-react/styles.css";
 import PlayerSelect from "./components/PlayerSelect";
 import GuessInput from "./components/GuessInput";
 
+
 const client = generateClient<Schema>();
 
-const serverUrl = "http://localhost:3001/api"; // Update to your backend URL
+// Define types for players and guesses
+interface Player {
+  id: number;
+  name: string;
+  mbti?: string; // mbti is optional initially
+}
 
-const predefinedPlayers = [
+interface Guess {
+  [key: number]: string; // key is player id and value is MBTI type
+}
+
+const predefinedPlayers: Player[] = [
   { id: 0, name: "Alice" },
   { id: 1, name: "Bob" },
   { id: 2, name: "Charlie" },
@@ -18,16 +28,16 @@ const predefinedPlayers = [
 ];
 
 function App() {
-  const [selectedPlayer, setSelectedPlayer] = useState(null);
+  const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
   const [guesses, setGuesses] = useState({});
 
-  const submitGuesses = async (newGuesses, selectedPlayer) => {
+  const submitGuesses = async (newGuesses: Guess, selectedPlayer: Player) => {
     setGuesses(newGuesses);
     console.log("Guesses submitted:", newGuesses, selectedPlayer);
     await client.models.Guesses.create({
       guesses,
-      player: selectedPlayer
-    })
+      player: selectedPlayer,
+    });
   };
 
   return (
