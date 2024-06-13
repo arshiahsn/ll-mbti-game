@@ -95,7 +95,7 @@ function App() {
           <h1>{user?.signInDetails?.loginId}</h1>
           <div className="container">
             <h1>MBTI Guessing Game</h1>
-            {!selectedPlayer ? (
+            {(!selectedPlayer || hasPlayed) ? (
               <PlayerSelect
                 players={predefinedPlayers}
                 setSelectedPlayer={setSelectedPlayer}
