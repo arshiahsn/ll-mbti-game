@@ -6,7 +6,6 @@ import "@aws-amplify/ui-react/styles.css";
 import PlayerSelect from "./components/PlayerSelect";
 import GuessInput from "./components/GuessInput";
 
-
 const client = generateClient<Schema>();
 
 // Define types for players and guesses
@@ -30,14 +29,20 @@ const predefinedPlayers: Player[] = [
 function App() {
   const [selectedPlayer, setSelectedPlayer] = useState<Player | null>(null);
   const [guesses, setGuesses] = useState({});
+  const [isDone, setIsDone] = useState(false);
 
   const submitGuesses = async (newGuesses: Guess, selectedPlayer: Player) => {
-    setGuesses(newGuesses);
-    console.log("Guesses submitted:", newGuesses, selectedPlayer);
-    await client.models.Guesses.create({
-      guesses,
-      player: selectedPlayer,
-    });
+    try {
+      setGuesses(newGuesses);
+      console.log("Guesses submitted:", newGuesses, selectedPlayer);
+      await client.models.Guesses.create({
+        guesses: JSON.stringify(guesses),
+        player: selectedPlayer,
+      });
+      setIsDone(true);
+    } catch (error: unknown) {
+      setIsDone(false);
+    }
   };
 
   return (
@@ -54,16 +59,21 @@ function App() {
               />
             ) : (
               <>
-                <h2>
-                  Welcome, {selectedPlayer.name} ({selectedPlayer.mbti})
-                </h2>
-                <GuessInput
-                  players={predefinedPlayers.filter(
-                    (player) => player.id !== selectedPlayer.id
-                  )}
-                  submitGuesses={submitGuesses}
-                  selectedPlayer={selectedPlayer}
-                />
+                {!isDone && (
+                  <>
+                    <h2>
+                      Welcome, {selectedPlayer.name} ({selectedPlayer.mbti})
+                    </h2>
+                    <GuessInput
+                      players={predefinedPlayers.filter(
+                        (player) => player.id !== selectedPlayer.id
+                      )}
+                      submitGuesses={submitGuesses}
+                      selectedPlayer={selectedPlayer}
+                    />
+                  </>
+                )}
+                {isDone && <h2>Thanks for playing!</h2>}
               </>
             )}
           </div>
