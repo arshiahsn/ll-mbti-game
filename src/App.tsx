@@ -1,5 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  List,
+  ListItem,
+  ListItemText,
+  Box,
+  Collapse
+} from '@mui/material';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import type { Schema } from "../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 import { Authenticator } from "@aws-amplify/ui-react";
@@ -56,6 +68,9 @@ const predefinedPlayers: Player[] = [
   { id: 10, name: "Jason" },
   { id: 11, name: "Irfan" },
   { id: 12, name: "Vaibhav" },
+  { id: 13, name: "Sneha" },
+  { id: 14, name: "Raihan" },
+  { id: 15, name: "Inderjit" }
 ];
 
 function App() {
@@ -109,8 +124,8 @@ function App() {
     <Authenticator>
       {({ signOut, user }) => (
         <main>
+          <Box className="container">
           <h1>{user?.signInDetails?.loginId}</h1>
-          <div className="container">
             <h1>MBTI Guessing Game</h1>
             <MBTILegend title="Help" types={mbtiTypes} />
             {!selectedPlayer && !hasPlayed ? (
@@ -139,10 +154,10 @@ function App() {
                 {isDone && <h2>Thanks for playing!</h2>}
               </>
             )}
-            <button className="button" onClick={signOut}>
+            <Button className="button" onClick={signOut}>
               Sign out
-            </button>
-          </div>
+            </Button>
+          </Box>
         </main>
       )}
     </Authenticator>

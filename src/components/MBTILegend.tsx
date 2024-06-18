@@ -1,5 +1,17 @@
 import React, { useState } from "react";
 import { Tooltip } from "react-tooltip";
+import {
+    Card,
+    CardContent,
+    Typography,
+    Button,
+    List,
+    ListItem,
+    ListItemText,
+    Box,
+    Collapse
+  } from '@mui/material';
+
 import "./MBTILegend.css";
 
 type MBTIType = {
@@ -28,57 +40,57 @@ const MBTILegend: React.FC<MBTILegendProps> = ({ title, types }) => {
   };
 
   return (
-    <div className="mbti-legend">
-      <div className="mbti-legend-header">
+    <Box className="mbti-legend">
+      <Box className="mbti-legend-header">
         <h3 className="mbti-legend-title">{title}</h3>
-        <button className="mbti-legend-toggle" onClick={toggleVisibility}>
+        <Button className="mbti-legend-toggle" onClick={toggleVisibility}>
           {isVisible ? "Hide" : "Show"}
-        </button>
-      </div>
+        </Button>
+      </Box>
       {isVisible && (
         <>
-          <button
+          <Button
             className="mbti-legend-toggle"
             onClick={toggleInfoVisibility}
           >
             {isInfoVisible
               ? "Hide Breakdown"
               : "Show Breakdown"}
-          </button>
+          </Button>
           {isInfoVisible && (
-            <div className="mbti-legend-info">
+            <Box className="mbti-legend-info">
               <h4>MBTI Letter Meanings:</h4>
-              <div className="mbti-legend-info-grid">
-                <div>
+              <Box className="mbti-legend-info-grid">
+                <Box>
                   <strong>I</strong> – Introversion
-                </div>
-                <div>
+                </Box>
+                <Box>
                   <strong>E</strong> – Extraversion
-                </div>
-                <div>
+                </Box>
+                <Box>
                   <strong>S</strong> – Sensing
-                </div>
-                <div>
+                </Box>
+                <Box>
                   <strong>N</strong> – Intuition
-                </div>
-                <div>
+                </Box>
+                <Box>
                   <strong>T</strong> – Thinking
-                </div>
-                <div>
+                </Box>
+                <Box>
                   <strong>F</strong> – Feeling
-                </div>
-                <div>
+                </Box>
+                <Box>
                   <strong>J</strong> – Judging
-                </div>
-                <div>
+                </Box>
+                <Box>
                   <strong>P</strong> – Perceiving
-                </div>
-              </div>
-            </div>
+                </Box>
+              </Box>
+            </Box>
           )}
-          <ul className="mbti-legend-list">
+          <List className="mbti-legend-list">
             {types.map((type, index) => (
-              <li key={index} className="mbti-legend-item">
+              <ListItem key={index} className="mbti-legend-item">
                 <span
                   className="mbti-legend-color"
                   style={{ backgroundColor: type.color }}
@@ -98,16 +110,18 @@ const MBTILegend: React.FC<MBTILegendProps> = ({ title, types }) => {
                   </a>
                 </p>
                 <Tooltip
+                  className="mbti-tooltip"
                   anchorId={`tooltip-${type.label}`} // Connect tooltip to element by id
                   place="top"
                   content={type.summary} // Tooltip content
+                  clickable={true}
                 />
-              </li>
+              </ListItem>
             ))}
-          </ul>
+          </List>
         </>
       )}
-    </div>
+    </Box>
   );
 };
 

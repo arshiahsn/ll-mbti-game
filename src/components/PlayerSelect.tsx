@@ -1,4 +1,17 @@
 import React, { useState } from 'react';
+import {
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  List,
+  ListItem,
+  ListItemText,
+  Tooltip,
+  Box,
+  Collapse
+} from '@mui/material';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
 
 const mbtiTypes = [
   'ISTJ', 'ISFJ', 'INFJ', 'INTJ',
@@ -30,7 +43,7 @@ const PlayerSelect: React.FC<PlayerSelectProps> = ({ players, setSelectedPlayer 
   };
 
   return (
-    <div className="card">
+    <Card className="card">
       <h2>Select Your Name and MBTI Type</h2>
       <select
         value={selectedId}
@@ -52,8 +65,8 @@ const PlayerSelect: React.FC<PlayerSelectProps> = ({ players, setSelectedPlayer 
           <option key={type} value={type}>{type}</option>
         ))}
       </select>
-      <button onClick={handleSelect}>Select</button>
-    </div>
+      <Button onClick={handleSelect}>Select</Button>
+    </Card>
   );
 };
 

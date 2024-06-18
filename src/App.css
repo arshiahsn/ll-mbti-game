@@ -7,12 +7,12 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  max-heigh: 100%;
 }
 
 /* Container */
 .container {
   width: 100%;
-  max-width: 800px;
   max-height: fit-content;
   padding: 20px;
   margin: auto;
@@ -97,11 +97,11 @@ li span {
 /* General card style */
 .card {
   background: #fff;
-  max-height: fit-content;
   border-radius: 12px;
   padding: 20px;
   margin-bottom: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: auto;
 }
 
 .card h2 {
@@ -109,7 +109,7 @@ li span {
 }
 
 .guess {
-  margin-bottom: 10px;
+  margin-bottom: 1px;
   display: flex;
   align-items: center;
   justify-content: space-between;

@@ -1,4 +1,17 @@
 import React, { useState } from "react";
+import {
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  List,
+  ListItem,
+  ListItemText,
+  Tooltip,
+  Box,
+  Collapse
+} from '@mui/material';
+import { ExpandLess, ExpandMore } from '@mui/icons-material';
 
 const mbtiTypes = [
   "ISTJ",
@@ -56,11 +69,11 @@ const GuessInput: React.FC<GuessInputProps> = ({
   };
 
   return (
-    <div className="card">
+    <Card className="card">
       <h2>Guess Players' MBTI</h2>
       <form onSubmit={handleSubmit}>
         {players.map((player) => (
-          <div key={player.id} className="guess">
+          <Box key={player.id} className="guess">
             <span>{player.name}</span>
             <select
               className="select"
@@ -77,11 +90,11 @@ const GuessInput: React.FC<GuessInputProps> = ({
                 </option>
               ))}
             </select>
-          </div>
+          </Box>
         ))}
-        <button type="submit">Submit Guesses</button>
+        <Button type="submit">Submit Guesses</Button>
       </form>
-    </div>
+    </Card>
   );
 };
 

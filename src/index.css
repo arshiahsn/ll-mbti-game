@@ -7,14 +7,14 @@ body {
   width: 100vw;
   justify-content: center;
   align-items: center;
-  overflow: auto;
 }
 
 main {
   display: flex;
   flex-direction: column;
   align-items: stretch;
-  max-height: 1200px;
+  height: 90vh;
+  width: 600px;
   overflow: auto;
 }
 
