@@ -1,16 +1,6 @@
 import React, { useState } from "react";
 import { Tooltip } from "react-tooltip";
-import {
-    Card,
-    CardContent,
-    Typography,
-    Button,
-    List,
-    ListItem,
-    ListItemText,
-    Box,
-    Collapse
-  } from '@mui/material';
+import { Button, List, ListItem, Box } from "@mui/material";
 
 import "./MBTILegend.css";
 
@@ -49,13 +39,8 @@ const MBTILegend: React.FC<MBTILegendProps> = ({ title, types }) => {
       </Box>
       {isVisible && (
         <>
-          <Button
-            className="mbti-legend-toggle"
-            onClick={toggleInfoVisibility}
-          >
-            {isInfoVisible
-              ? "Hide Breakdown"
-              : "Show Breakdown"}
+          <Button className="mbti-legend-toggle" onClick={toggleInfoVisibility}>
+            {isInfoVisible ? "Hide Breakdown" : "Show Breakdown"}
           </Button>
           {isInfoVisible && (
             <Box className="mbti-legend-info">

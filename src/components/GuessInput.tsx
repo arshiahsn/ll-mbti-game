@@ -1,17 +1,5 @@
 import React, { useState } from "react";
-import {
-  Card,
-  CardContent,
-  Typography,
-  Button,
-  List,
-  ListItem,
-  ListItemText,
-  Tooltip,
-  Box,
-  Collapse
-} from '@mui/material';
-import { ExpandLess, ExpandMore } from '@mui/icons-material';
+import { Card, Button, Box } from "@mui/material";
 
 const mbtiTypes = [
   "ISTJ",
@@ -55,7 +43,7 @@ const GuessInput: React.FC<GuessInputProps> = ({
   players,
   submitGuesses,
   selectedPlayer,
-  loginId
+  loginId,
 }) => {
   const [guesses, setGuesses] = useState<GuessesState>({});
 
